@@ -1,0 +1,179 @@
+object frMap: TfrMap
+  Size.Width = 345.000000000000000000
+  Size.Height = 675.000000000000000000
+  Size.PlatformDefault = False
+  OnPainting = FramePainting
+  OnPaint = FramePaint
+  object MapView: TMapView
+    Align = Client
+    Size.Width = 345.000000000000000000
+    Size.Height = 559.000000000000000000
+    Size.PlatformDefault = False
+    MapType = Hybrid
+    LayerOptions = [UserLocation]
+    OnMarkerClick = MapViewMarkerClick
+  end
+  object BarraTitulo: TRectangle
+    Align = Top
+    Fill.Color = xFF81BE8A
+    Margins.Left = -1.000000000000000000
+    Margins.Top = -1.000000000000000000
+    Margins.Right = -1.000000000000000000
+    Margins.Bottom = -1.000000000000000000
+    Position.X = -1.000000000000000000
+    Position.Y = -1.000000000000000000
+    Size.Width = 347.000000000000000000
+    Size.Height = 58.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Color = claNull
+    object SwitchMarkers: TSwitch
+      Align = Right
+      IsChecked = True
+      Margins.Top = 15.000000000000000000
+      Margins.Right = 18.000000000000000000
+      Position.X = 274.000000000000000000
+      Position.Y = 15.000000000000000000
+      Size.Width = 55.000000000000000000
+      Size.Height = 43.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnSwitch = SwitchMarkersSwitch
+      object Label2: TLabel
+        Align = Top
+        StyledSettings = [Family, Style]
+        Locked = True
+        Margins.Left = -15.000000000000000000
+        Margins.Top = -18.000000000000000000
+        Margins.Right = -15.000000000000000000
+        Position.X = -15.000000000000000000
+        Position.Y = -18.000000000000000000
+        Size.Width = 85.000000000000000000
+        Size.Height = 23.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.FontColor = xFF5D6275
+        TextSettings.HorzAlign = Center
+        Text = 'Mostrar nomes'
+        TabOrder = 0
+      end
+    end
+  end
+  object RecInfo: TRectangle
+    Align = Bottom
+    Fill.Color = xFF1FA82D
+    Locked = True
+    Position.Y = 615.000000000000000000
+    Size.Width = 345.000000000000000000
+    Size.Height = 60.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object lblDistance: TLabel
+      Align = Client
+      StyledSettings = [Family, Size]
+      Margins.Right = 3.000000000000000000
+      Size.Width = 279.000000000000000000
+      Size.Height = 31.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      TabOrder = 4
+    end
+    object Label1: TLabel
+      Align = Left
+      StyledSettings = [Family]
+      Locked = True
+      Margins.Left = 5.000000000000000000
+      Margins.Right = 3.000000000000000000
+      Position.X = 5.000000000000000000
+      Size.Width = 55.000000000000000000
+      Size.Height = 31.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 11.000000000000000000
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'Dist'#226'ncia:'
+      TabOrder = 2
+    end
+    object RecNameArea: TRectangle
+      Fill.Color = claWhite
+      HitTest = False
+      Position.X = 180.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 23.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      object lblNameTh: TLabel
+        Align = Client
+        AutoSize = True
+        StyledSettings = [Family, FontColor]
+        Locked = True
+        Margins.Top = 1.000000000000000000
+        Size.Width = 100.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 9.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.HorzAlign = Center
+        TextSettings.WordWrap = False
+        Text = 'lblNameArea'
+        TabOrder = 1
+      end
+    end
+    object Layout6: TLayout
+      Align = Bottom
+      Position.Y = 31.000000000000000000
+      Size.Width = 345.000000000000000000
+      Size.Height = 29.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 3
+      object Label5: TLabel
+        Align = Left
+        StyledSettings = [Family]
+        Locked = True
+        Margins.Left = 5.000000000000000000
+        Margins.Right = 3.000000000000000000
+        Position.X = 5.000000000000000000
+        Position.Y = 2.000000000000000000
+        Size.Width = 46.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
+        Text = 'Altitude:'
+        TabOrder = 3
+      end
+      object lblAltitude: TLabel
+        Align = Client
+        StyledSettings = [Family, Size]
+        Margins.Right = 3.000000000000000000
+        Size.Width = 288.000000000000000000
+        Size.Height = 27.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
+        TabOrder = 4
+      end
+      object Line5: TLine
+        Align = Top
+        Locked = True
+        HitTest = False
+        LineType = Top
+        Opacity = 0.500000000000000000
+        Size.Width = 345.000000000000000000
+        Size.Height = 2.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claWhite
+      end
+    end
+  end
+  object LocationSensor: TLocationSensor
+    Accuracy = 0.000100000000000000
+    ActivityType = Automotive
+    Distance = 0.000100000000000000
+    UsageAuthorization = WhenInUse
+    OnLocationChanged = LocationSensorLocationChanged
+    Left = 15
+    Top = 85
+  end
+end
