@@ -22,11 +22,9 @@ uses
   private
 
   class function CenterPolyline(arrPoints: TArray<TMapCoordinate>): TMapCoordinate;
-  class procedure MkrName(coords: TMapCoordinate; Name: String; cod: integer; area: Double; Map: TMapView; RecNameTh: TRectangle;
-    lblNameTh, lblThArea: TLabel; var Names: TMarkersArray); overload;
-  class procedure MkrName(coords: TMapCoordinate; Name: String; cod: integer; area: Double; Map: TMapView; lblNameTh, lblThArea: TLabel;
-    var Names: TMarkersArray); overload;
+  class procedure MkrName(coords: TMapCoordinate; Name: String; Map: TMapView; RecNameTh: TRectangle; lblNameTh: TLabel; var Names: TMarkersArray);
   class procedure LineDistance(coord1, coord2: TMapCoordinate; Map: TMapView; var aList: TLineArray);
+  class function ReadJson(number: smallint): TJSONObject;
 
   public
 
@@ -42,39 +40,43 @@ uses
 
   class procedure Distance(LookAt, Position: TMapCoordinate; Map: TMapView; lblDistancia: TLabel; var aList: TLineArray); overload;
 
-  class procedure ShowPolygon(cod: integer; area: Double; LookAt, Position: TMapCoordinate; var arrPoints: TArray<TMapCoordinate>;
-    Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh, lblThArea: TLabel; Name: String; linecolor, fillcolor: TAlphaColor;
-    var arrPols: TArray<TMapPolygon>; var aList: array of TMapPolyline; var Names: TMarkersArray);
+  class procedure ShowPolygon(LookAt, Position: TMapCoordinate; var arrPoints: TArray<TMapCoordinate>; Map: TMapView;
+  RecNameTh: TRectangle; LblDistance, lblNameTh: TLabel; var arrPols: TArray<TMapPolygon>; var aList: array of TMapPolyline;
+  var Names: TMapExample.TMarkersArray);
 
-  class procedure BuildPolygon(linecolor, fillcolor: TAlphaColor; Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh, lblThArea: TLabel;
-    Name: String; cod: integer; area: Double; LookAt, Position: TMapCoordinate; var arrPols: TPolyArray;
-    var arrPoints: TArray<TMapCoordinate>; var aList: array of TMapPolyline;
-    var Names: TMarkersArray);
+  class procedure BuildPolygon(var Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh: TLabel;
+  Name: String; LookAt, Position: TMapCoordinate; var arrPols: TPolyArray;
+  var arrPoints: TArray<TMapCoordinate>; var aList: array of TMapPolyline;
+  var Names: TMarkersArray);
 
 end;
 
 implementation
 
+uses System.IOUtils;
+
 { TMapsttivos }
 
-class procedure TMapExample.BuildPolygon(linecolor, fillcolor: TAlphaColor; Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh, lblThArea: TLabel;
-  Name: String; cod: integer; area: Double; LookAt, Position: TMapCoordinate; var arrPols: TPolyArray;
-  var arrPoints: TArray<TMapCoordinate>; var aList: array of TMapPolyline;
+class procedure TMapExample.BuildPolygon(var Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh: TLabel; Name: String; LookAt,
+  Position: TMapCoordinate; var arrPols: TPolyArray; var arrPoints: TArray<TMapCoordinate>; var aList: array of TMapPolyline;
   var Names: TMarkersArray);
 
 var descPolygon: TMapPolygonDescriptor;
 begin
 
   try
+
+    Map.BeginUpdate;
+
     {polygon (utiliza os pontos lidos do Json)}
     descPolygon := TMapPolygonDescriptor.Create(arrPoints);
 
     {Caracteristicas}
-    descPolygon.StrokeColor := TAlphaColor(linecolor);
+    descPolygon.StrokeColor := TAlphaColor($5F40E0D0);
     descPolygon.StrokeWidth := 6;
     descPolygon.Geodesic := false;
     descPolygon.ZIndex := 0.0;
-    descPolygon.fillcolor := TAlphaColor(fillcolor);
+    descPolygon.fillcolor := TAlphaColor($5F40E0D0);
 
     {Adicionar ao mapa}
     arrPols := arrPols + [Map.AddPolygon(descPolygon)];
@@ -82,14 +84,12 @@ begin
     {centralizar o mapa (calculado aprox. a partir dos pontos)}
     LookAt := CenterPolyline(arrPoints);
     Map.Location := LookAt;
-    Map.Zoom := 15;
+    Map.Zoom := 13;
 
     {Adiciona o nome do talhao ao poligono}
-    if Name <> '' then
-      if cod > 0 then
-        MkrName(LookAt, Name, cod, area, Map, RecNameTh, lblNameTh, lblThArea, Names)
-      else
-        MkrName(LookAt, Name, cod, area, Map, lblNameTh, lblThArea, Names);
+    MkrName(LookAt, Name, Map, RecNameTh, lblNameTh, Names);
+
+    Map.EndUpdate;
 
   except
     Map.Visible := false;
@@ -156,6 +156,20 @@ begin
 
 end;
 
+class function TMapExample.ReadJson(number: smallint): TJSONObject;
+var arq: TStringList;
+    s: String;
+begin
+
+  //Ler JSON KML
+  arq := TStringList.Create;
+  arq.LoadFromFile(TPath.GetDocumentsPath + PathDelim + 'th' + number.ToString + '.json');
+  s := arq.Text;
+  Result := TJSONObject.ParseJSONValue(s) as TJSONObject;
+  arq.Free;
+
+end;
+
 class function TMapExample.RemoveLine(aList: TLineArray): TLineArray;
 var i: integer;
 begin
@@ -215,8 +229,9 @@ begin
 
 end;
 
-class procedure TMapExample.MkrName(coords: TMapCoordinate; Name: String; cod: integer; area: Double; Map: TMapView; RecNameTh: TRectangle;
-  lblNameTh, lblThArea: TLabel; var Names: TMarkersArray);
+class procedure TMapExample.MkrName(coords: TMapCoordinate; Name: String; Map: TMapView; RecNameTh: TRectangle;
+  lblNameTh: TLabel; var Names: TMarkersArray);
+
 var MyMarker : TMapMarkerDescriptor;
 begin
 
@@ -225,35 +240,11 @@ begin
   Map.Location := TMapCoordinate(coords);
   MyMarker := TMapMarkerDescriptor.Create(coords, Name);
   MyMarker.Title := Name;
-  MyMarker.Snippet := cod.ToString;
   MyMarker.Draggable := false;
   MyMarker.Visible := True;
   lblNameTh.Text := Name;
-  lblThArea.Text := FormatFloat('#,##0.00', area) + ' ha';
   RecNameTh.Fill.color := TAlphaColorRec.White;
   MyMarker.Icon := RecNameTh.MakeScreenshot;
-
-  Names := Names + [Map.AddMarker(MyMarker)];
-
-  Map.EndUpdate;
-
-end;
-
-class procedure TMapExample.MkrName(coords: TMapCoordinate; Name: String; cod: integer; area: Double; Map: TMapView; lblNameTh, lblThArea: TLabel;
-    var Names: TMarkersArray);
-
-var MyMarker : TMapMarkerDescriptor;
-begin
-
-  Map.BeginUpdate;
-  Map.Visible := True;
-  Map.Location := TMapCoordinate(coords);
-  MyMarker := TMapMarkerDescriptor.Create(coords, Name);
-  MyMarker.Title := Name;
-  MyMarker.Draggable := false;
-  MyMarker.Visible := True;
-  lblNameTh.Text := Name;
-  MyMarker.Icon := lblNameTh.MakeScreenshot;
 
   Names := Names + [Map.AddMarker(MyMarker)];
 
@@ -343,22 +334,25 @@ begin
 
 end;
 
-class procedure TMapExample.ShowPolygon(cod: integer; area: Double; LookAt, Position: TMapCoordinate; var arrPoints: TArray<TMapCoordinate>;
-  Map: TMapView; RecNameTh: TRectangle; LblDistance, lblNameTh, lblThArea: TLabel; Name: String; linecolor, fillcolor: TAlphaColor;
-  var arrPols: TArray<TMapPolygon>; var aList: array of TMapPolyline; var Names: TMarkersArray);
-var Kml, Coordenada, Look: TJSONObject;
-    Coordenadas: TJsonArray;
-    i: integer;
+class procedure TMapExample.ShowPolygon(LookAt, Position: TMapCoordinate; var arrPoints: TArray<TMapCoordinate>; Map: TMapView;
+  RecNameTh: TRectangle; LblDistance, lblNameTh: TLabel; var arrPols: TArray<TMapPolygon>; var aList: array of TMapPolyline;
+  var Names: TMapExample.TMarkersArray);
+
+  var Kml, Coordenada, Look: TJSONObject;
+  Coordenadas: TJsonArray;
+  i, j: integer;
+  name: String;
+
 begin
 
   Kml := nil;
 
   try
 
-    //Ler JSON KML
+    for i := 1 to 2 do
+    begin
 
-
-      //Kml := TJSONObject.ParseJSONValue(qryKML.Fields[0].AsString) as TJSONObject;
+      Kml := ReadJson(i);
 
       if Assigned(Kml) then
       begin
@@ -367,25 +361,26 @@ begin
 
         LookAt.Latitude := StringReplace(Look.GetValue('latitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
         LookAt.Longitude := StringReplace(Look.GetValue('longitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
-
+        Name := (Kml.GetValue('kml') As TJSONObject).GetValue('nome').ToString;
         Coordenadas := (Kml.GetValue('kml') As TJSONObject).GetValue('coordenadas') As TJsonArray;
 
         SetLength(arrPoints, Coordenadas.Count);
 
-        for i := 0 to Coordenadas.Count - 1 do
+        for j := 0 to Coordenadas.Count - 1 do
         begin
 
           Coordenada := Coordenadas.Items[i] As TJSONObject;
-          arrPoints[i].Latitude := StringReplace(Coordenada.GetValue('latitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
-          arrPoints[i].Longitude := StringReplace(Coordenada.GetValue('longitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
+          arrPoints[j].Latitude := StringReplace(Coordenada.GetValue('latitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
+          arrPoints[j].Longitude := StringReplace(Coordenada.GetValue('longitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
 
         end;
 
-        BuildPolygon(linecolor, fillcolor, Map, RecNameTh, LblDistance, lblNameth, lblThArea, Name, cod, area, LookAt, Position, arrPols, arrPoints,
+        BuildPolygon(Map, RecNameTh, LblDistance, lblNameth, Name, LookAt, Position, arrPols, arrPoints,
           aList, Names);
 
-      end;
+        end;
 
+    end;
 
     Kml.Free;
 

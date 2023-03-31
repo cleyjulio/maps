@@ -1,13 +1,13 @@
 object frMap: TfrMap
   Size.Width = 345.000000000000000000
-  Size.Height = 675.000000000000000000
+  Size.Height = 650.000000000000000000
   Size.PlatformDefault = False
   OnPainting = FramePainting
   OnPaint = FramePaint
   object MapView: TMapView
     Align = Client
     Size.Width = 345.000000000000000000
-    Size.Height = 559.000000000000000000
+    Size.Height = 591.000000000000000000
     Size.PlatformDefault = False
     MapType = Hybrid
     LayerOptions = [UserLocation]
@@ -15,7 +15,7 @@ object frMap: TfrMap
   end
   object BarraTitulo: TRectangle
     Align = Top
-    Fill.Color = xFF81BE8A
+    Fill.Color = xFF0C75CA
     Margins.Left = -1.000000000000000000
     Margins.Top = -1.000000000000000000
     Margins.Right = -1.000000000000000000
@@ -23,7 +23,7 @@ object frMap: TfrMap
     Position.X = -1.000000000000000000
     Position.Y = -1.000000000000000000
     Size.Width = 347.000000000000000000
-    Size.Height = 58.000000000000000000
+    Size.Height = 61.000000000000000000
     Size.PlatformDefault = False
     Stroke.Color = claNull
     object SwitchMarkers: TSwitch
@@ -34,7 +34,7 @@ object frMap: TfrMap
       Position.X = 274.000000000000000000
       Position.Y = 15.000000000000000000
       Size.Width = 55.000000000000000000
-      Size.Height = 43.000000000000000000
+      Size.Height = 46.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       OnSwitch = SwitchMarkersSwitch
@@ -51,53 +51,51 @@ object frMap: TfrMap
         Size.Height = 23.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 10.000000000000000000
-        TextSettings.FontColor = xFF5D6275
+        TextSettings.FontColor = claWhite
         TextSettings.HorzAlign = Center
         Text = 'Mostrar nomes'
         TabOrder = 0
       end
     end
-  end
-  object RecInfo: TRectangle
-    Align = Bottom
-    Fill.Color = xFF1FA82D
-    Locked = True
-    Position.Y = 615.000000000000000000
-    Size.Width = 345.000000000000000000
-    Size.Height = 60.000000000000000000
-    Size.PlatformDefault = False
-    Stroke.Kind = None
-    object lblDistance: TLabel
-      Align = Client
-      StyledSettings = [Family, Size]
-      Margins.Right = 3.000000000000000000
-      Size.Width = 279.000000000000000000
-      Size.Height = 31.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claWhite
-      TabOrder = 4
-    end
-    object Label1: TLabel
+    object Layout1: TLayout
       Align = Left
-      StyledSettings = [Family]
-      Locked = True
-      Margins.Left = 5.000000000000000000
-      Margins.Right = 3.000000000000000000
-      Position.X = 5.000000000000000000
-      Size.Width = 55.000000000000000000
-      Size.Height = 31.000000000000000000
+      Size.Width = 257.000000000000000000
+      Size.Height = 61.000000000000000000
       Size.PlatformDefault = False
-      TextSettings.Font.Size = 11.000000000000000000
-      TextSettings.Font.StyleExt = {00070000000000000004000000}
-      TextSettings.FontColor = claWhite
-      Text = 'Dist'#226'ncia:'
       TabOrder = 2
+      object Label1: TLabel
+        Align = Left
+        StyledSettings = [Family]
+        Locked = True
+        Margins.Left = 5.000000000000000000
+        Margins.Right = 3.000000000000000000
+        Position.X = 5.000000000000000000
+        Size.Width = 55.000000000000000000
+        Size.Height = 61.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 11.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
+        Text = 'Dist'#226'ncia:'
+        TabOrder = 2
+      end
+      object lblDistance: TLabel
+        Align = Client
+        StyledSettings = [Family, Size]
+        Margins.Right = 3.000000000000000000
+        Size.Width = 191.000000000000000000
+        Size.Height = 61.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
+        TabOrder = 4
+      end
     end
     object RecNameArea: TRectangle
       Fill.Color = claWhite
       HitTest = False
-      Position.X = 180.000000000000000000
+      Position.X = 154.000000000000000000
+      Position.Y = 26.000000000000000000
       Size.Width = 100.000000000000000000
       Size.Height = 23.000000000000000000
       Size.PlatformDefault = False
@@ -117,53 +115,6 @@ object frMap: TfrMap
         TextSettings.WordWrap = False
         Text = 'lblNameArea'
         TabOrder = 1
-      end
-    end
-    object Layout6: TLayout
-      Align = Bottom
-      Position.Y = 31.000000000000000000
-      Size.Width = 345.000000000000000000
-      Size.Height = 29.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 3
-      object Label5: TLabel
-        Align = Left
-        StyledSettings = [Family]
-        Locked = True
-        Margins.Left = 5.000000000000000000
-        Margins.Right = 3.000000000000000000
-        Position.X = 5.000000000000000000
-        Position.Y = 2.000000000000000000
-        Size.Width = 46.000000000000000000
-        Size.Height = 27.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.Size = 11.000000000000000000
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TextSettings.FontColor = claWhite
-        Text = 'Altitude:'
-        TabOrder = 3
-      end
-      object lblAltitude: TLabel
-        Align = Client
-        StyledSettings = [Family, Size]
-        Margins.Right = 3.000000000000000000
-        Size.Width = 288.000000000000000000
-        Size.Height = 27.000000000000000000
-        Size.PlatformDefault = False
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TextSettings.FontColor = claWhite
-        TabOrder = 4
-      end
-      object Line5: TLine
-        Align = Top
-        Locked = True
-        HitTest = False
-        LineType = Top
-        Opacity = 0.500000000000000000
-        Size.Width = 345.000000000000000000
-        Size.Height = 2.000000000000000000
-        Size.PlatformDefault = False
-        Stroke.Color = claWhite
       end
     end
   end

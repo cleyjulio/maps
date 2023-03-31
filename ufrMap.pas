@@ -7,24 +7,20 @@ uses
 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation, FMX.Maps,
 
-  map.example, Skia, Skia.FMX;
+  map.example;
 
 type
   TfrMap = class(TFrame)
     MapView: TMapView;
-    RecInfo: TRectangle;
-    lblDistance: TLabel;
-    Label1: TLabel;
-    RecNameArea: TRectangle;
-    lblNameTh: TLabel;
-    Layout6: TLayout;
-    Label5: TLabel;
-    lblAltitude: TLabel;
-    Line5: TLine;
-    SwitchMarkers: TSwitch;
-    Label2: TLabel;
     LocationSensor: TLocationSensor;
     BarraTitulo: TRectangle;
+    SwitchMarkers: TSwitch;
+    Label2: TLabel;
+    Layout1: TLayout;
+    Label1: TLabel;
+    lblDistance: TLabel;
+    RecNameArea: TRectangle;
+    lblNameTh: TLabel;
     procedure FramePainting(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
     procedure MapViewMarkerClick(Marker: TMapMarker);
     procedure LocationSensorLocationChanged(Sender: TObject; const OldLocation, NewLocation: TLocationCoord2D);
@@ -85,18 +81,15 @@ begin
 
   Position.Latitude := NewLocation.Latitude;
   Position.Longitude := NewLocation.Longitude;
-  lblAltitude.Text := FormatFloat('#,##0.00', LocationSensor.Sensor.Altitude) + ' m';
 
 end;
 
 procedure TfrMap.MapViewMarkerClick(Marker: TMapMarker);
 begin
 
-  if not RecInfo.Visible then
-    RecInfo.Visible := True;
-
   TMapExample.ChangeMarker(Marker, MapView, RecNameArea, lblNameTh, Names);
   lblDistance.Text := '';
+  TMapExample.RemoveLine(LineDistance);
   TMapExample.Distance(Marker.Descriptor.Position, Position, MapView, lblDistance, LineDistance);
 
 end;

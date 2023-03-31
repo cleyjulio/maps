@@ -7,5 +7,15 @@ object frmApp: TfrmApp
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
+  object Button1: TButton
+    Align = Center
+    Size.Width = 177.000000000000000000
+    Size.Height = 73.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    Text = 'Visualizar Mapa'
+    OnClick = Button1Click
+  end
 end
