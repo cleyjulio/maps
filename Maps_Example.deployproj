@@ -168,6 +168,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="th0.json" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Maps_Example\assets\internal\</RemoteDir>
+            <RemoteName>th0.json</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\lib\android\debug\armeabi-v7a\libnative-activity.so" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Maps_Example\library\lib\armeabi-v7a\</RemoteDir>
             <RemoteName>libMaps_Example.so</RemoteName>

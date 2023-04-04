@@ -72,11 +72,11 @@ begin
     descPolygon := TMapPolygonDescriptor.Create(arrPoints);
 
     {Caracteristicas}
-    descPolygon.StrokeColor := TAlphaColor($5F40E0D0);
+    descPolygon.StrokeColor := TAlphaColor($96FFA500);
     descPolygon.StrokeWidth := 6;
     descPolygon.Geodesic := false;
     descPolygon.ZIndex := 0.0;
-    descPolygon.fillcolor := TAlphaColor($5F40E0D0);
+    descPolygon.fillcolor := TAlphaColor($96FFA500);
 
     {Adicionar ao mapa}
     arrPols := arrPols + [Map.AddPolygon(descPolygon)];
@@ -369,14 +369,13 @@ begin
         for j := 0 to Coordenadas.Count - 1 do
         begin
 
-          Coordenada := Coordenadas.Items[i] As TJSONObject;
+          Coordenada := Coordenadas.Items[j] As TJSONObject;
           arrPoints[j].Latitude := StringReplace(Coordenada.GetValue('latitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
           arrPoints[j].Longitude := StringReplace(Coordenada.GetValue('longitude').Value, '.', ',', [rfReplaceAll]).ToDouble;
 
         end;
 
-        BuildPolygon(Map, RecNameTh, LblDistance, lblNameth, Name, LookAt, Position, arrPols, arrPoints,
-          aList, Names);
+        BuildPolygon(Map, RecNameTh, LblDistance, lblNameth, Name, LookAt, Position, arrPols, arrPoints, aList, Names);
 
         end;
 

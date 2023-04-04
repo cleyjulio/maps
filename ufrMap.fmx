@@ -15,7 +15,7 @@ object frMap: TfrMap
   end
   object BarraTitulo: TRectangle
     Align = Top
-    Fill.Color = xFF0C75CA
+    Fill.Color = claWhite
     Margins.Left = -1.000000000000000000
     Margins.Top = -1.000000000000000000
     Margins.Right = -1.000000000000000000
@@ -42,18 +42,17 @@ object frMap: TfrMap
         Align = Top
         StyledSettings = [Family, Style]
         Locked = True
-        Margins.Left = -15.000000000000000000
+        Margins.Left = -50.000000000000000000
         Margins.Top = -18.000000000000000000
-        Margins.Right = -15.000000000000000000
-        Position.X = -15.000000000000000000
+        Margins.Right = -25.000000000000000000
+        Position.X = -50.000000000000000000
         Position.Y = -18.000000000000000000
-        Size.Width = 85.000000000000000000
+        Size.Width = 130.000000000000000000
         Size.Height = 23.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 10.000000000000000000
-        TextSettings.FontColor = claWhite
         TextSettings.HorzAlign = Center
-        Text = 'Mostrar nomes'
+        Text = 'Mostrar marcadores'
         TabOrder = 0
       end
     end
@@ -75,7 +74,6 @@ object frMap: TfrMap
         Size.PlatformDefault = False
         TextSettings.Font.Size = 11.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TextSettings.FontColor = claWhite
         Text = 'Dist'#226'ncia:'
         TabOrder = 2
       end
@@ -87,7 +85,6 @@ object frMap: TfrMap
         Size.Height = 61.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TextSettings.FontColor = claWhite
         TabOrder = 4
       end
     end
@@ -120,7 +117,7 @@ object frMap: TfrMap
   end
   object LocationSensor: TLocationSensor
     Accuracy = 0.000100000000000000
-    ActivityType = Automotive
+    ActivityType = Other
     Distance = 0.000100000000000000
     UsageAuthorization = WhenInUse
     OnLocationChanged = LocationSensorLocationChanged

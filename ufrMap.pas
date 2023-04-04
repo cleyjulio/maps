@@ -97,6 +97,7 @@ end;
 procedure TfrMap.SwitchMarkersSwitch(Sender: TObject);
 begin
   TMapExample.SetVisibleMarkers(Names, SwitchMarkers.IsChecked);
+  TMapExample.SetVisibleLine(LineDistance, SwitchMarkers.IsChecked);
 end;
 
 end.
