@@ -86,7 +86,7 @@ begin
     Map.Location := LookAt;
     Map.Zoom := 13;
 
-    {Adiciona o nome do talhao ao poligono}
+    {Adiciona os nomes da áreas aos poligonos na forma marcadores}
     MkrName(LookAt, Name, Map, RecNameTh, lblNameTh, Names);
 
     Map.EndUpdate;
@@ -352,6 +352,7 @@ begin
     for i := 1 to 2 do
     begin
 
+      //aqui lê os dois arquivos json de exemplo contendo as coordenadas.
       Kml := ReadJson(i);
 
       if Assigned(Kml) then
@@ -375,6 +376,7 @@ begin
 
         end;
 
+        //chama a função para gerar os polígonos...
         BuildPolygon(Map, RecNameTh, LblDistance, lblNameth, Name, LookAt, Position, arrPols, arrPoints, aList, Names);
 
         end;
